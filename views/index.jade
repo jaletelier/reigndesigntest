@@ -1,0 +1,11 @@
+include article_mixin
+extends layout
+block content
+  h1= title
+    small.text-muted  We <3 hackers 
+      mark news
+  p Welcome to #{title}
+  .container
+    - news['hits'].forEach(function(item) {
+      mixin field(item['story_title'], item['author'], prettydate.format(new Date(item['created_at'])))
+    - })
