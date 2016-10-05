@@ -1,0 +1,4 @@
+include article_mixin
+.container
+  each item in items
+    mixin field(item.title, item.author, prettydate.format(new Date(item.date)), item.url, item.objectID)

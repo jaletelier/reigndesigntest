@@ -1,5 +1,8 @@
-mixin field(story_title, author, created_at)
-  .row
-     .col-sm-9 #{story_title} - #{author} -
-     .col-sm-2 #{created_at}
-     .col-sm-1 X
+mixin field(story_title, author, created_at, url, id)
+  .itemrow.row(id='item'+id)
+    a(href=url, target='_blank')
+      .col-sm-9.itemcol #{story_title} 
+        p.author  - #{author} -
+      .col-sm-2.itemcol #{created_at}
+    div(rel=id).col-sm-1.itemcol.delete
+      span(class='glyphicon glyphicon-trash', aria-hidden='true')

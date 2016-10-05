@@ -7,8 +7,12 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var dbSchdule = require('./db-schedule');
 
 var app = express();
+
+//This start the schedule that fill the database every 1 hour.
+dbSchdule.startDBSchedule(1);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -18,11 +22,15 @@ app.set('view engine', 'jade');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/jquery',express.static(path.join(__dirname, 'node_modules', 'jquery')));
-app.use('/bootstrap',express.static(path.join(__dirname, 'node_modules', 'bootstrap')));
+//The following static rutes are exposed to load jquery, bootstrap and font-awesome without refering an external site
+app.use('/jquery', express.static(path.join(__dirname, 'node_modules', 'jquery')));
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules', 'bootstrap')));
+app.use('/font-awesome', express.static(path.join(__dirname, 'node_modules', 'font-awesome')));
 
 app.use('/', routes);
 app.use('/users', users);
@@ -57,6 +65,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
 
 
 module.exports = app;
